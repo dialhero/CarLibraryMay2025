@@ -75,7 +75,7 @@ namespace CarLibrary
             return base.ToString() + ",Taxi";
         }
 
-        public override object Fromstring(string input)
+        public override object FromString(string input)
         {
             return new Taxi();
         }

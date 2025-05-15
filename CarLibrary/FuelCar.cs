@@ -34,7 +34,7 @@ namespace CarLibrary
             Odometer += (int)km;
         }
 
-        public override object Fromstring(string input)
+        public override object FromString(string input)
         {
             return new FuelCar();
         }

@@ -38,9 +38,19 @@ namespace CarLibrary
             Odometer += (int)km;
         }
 
-        public override object Fromstring(string input)
+        public static ElectricCar FromString(string input)
         {
-            return new ElectricCar();
+            var parts = input.Split(',');
+            if (parts.Length != 4)
+                throw new FormatException("Forkert format på ElectricCar");
+
+            return new ElectricCar
+            {
+                Brand = parts[0],
+                Model = parts[1],
+                LicensePlate = parts[2],
+                Odometer = int.Parse(parts[3])
+            };
         }
     }
 }

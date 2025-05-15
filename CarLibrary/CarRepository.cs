@@ -24,7 +24,7 @@ namespace CarLibrary
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    cars.Add(Car.FromString(line));
+                    cars.Add(ElectricCar.FromString(line));
                 }
             }
             return cars;
