@@ -24,9 +24,19 @@ namespace CarLibrary
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    cars.Add(ElectricCar.FromString(line));
+                    var type = line.Split(',')[0];
+                    Car car = type switch
+                    {
+                        "ElectricCar" => ElectricCar.FromString(line),
+                        "FuelCar" => FuelCar.FromString(line),
+                        "Taxi" => Taxi.FromString(line),
+                        _ => throw new NotSupportedException($"Ukendt biltype: {type}")
+                    };
+
+                    cars.Add(car);
                 }
             }
+
             return cars;
         }
 

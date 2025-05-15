@@ -34,9 +34,19 @@ namespace CarLibrary
             Odometer += (int)km;
         }
 
-        public override object FromString(string input)
+        public static FuelCar FromString(string input)
         {
-            return new FuelCar();
+            var parts = input.Split(',');
+            if (parts.Length != 5 || parts[0] != "FuelCar")
+                throw new FormatException("Forkert format på FuelCar");
+
+            return new FuelCar
+            {
+                Brand = parts[1],
+                Model = parts[2],
+                LicensePlate = parts[3],
+                Odometer = int.Parse(parts[4])
+            };
         }
 
     }

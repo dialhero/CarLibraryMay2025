@@ -41,15 +41,15 @@ namespace CarLibrary
         public static ElectricCar FromString(string input)
         {
             var parts = input.Split(',');
-            if (parts.Length != 4)
+            if (parts.Length != 5 || parts[0] != "ElectricCar")
                 throw new FormatException("Forkert format på ElectricCar");
 
             return new ElectricCar
             {
-                Brand = parts[0],
-                Model = parts[1],
-                LicensePlate = parts[2],
-                Odometer = int.Parse(parts[3])
+                Brand = parts[1],
+                Model = parts[2],
+                LicensePlate = parts[3],
+                Odometer = int.Parse(parts[4])
             };
         }
     }

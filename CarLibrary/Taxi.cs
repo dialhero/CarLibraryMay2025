@@ -75,9 +75,30 @@ namespace CarLibrary
             return base.ToString() + ",Taxi";
         }
 
-        public override object FromString(string input)
+        public static Taxi FromString(string input)
         {
-            return new Taxi();
+            var parts = input.Split(',');
+            if (parts.Length != 6 || parts[0] != "Taxi")
+                throw new FormatException("Forkert format på Taxi");
+
+            var energyType = parts[1];
+
+            Car energyCar = energyType switch
+            {
+                "FuelCar" => FuelCar.FromString(string.Join(',', parts.Skip(1))),
+                "ElectricCar" => ElectricCar.FromString(string.Join(',', parts.Skip(1))),
+                _ => throw new FormatException("Ukendt energikilde for Taxi")
+            };
+
+            var taxi = new Taxi((IEnergy)energyCar)
+            {
+                Brand = energyCar.Brand,
+                Model = energyCar.Model,
+                LicensePlate = energyCar.LicensePlate,
+                Odometer = energyCar.Odometer
+            };
+
+            return taxi;
         }
     }
 }
