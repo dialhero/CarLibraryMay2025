@@ -8,13 +8,15 @@ namespace CarLibrary
 {
     public class TripRepository : ITripRepository
     {
-
+        private readonly ICarRepository _carRepo;
         public string FilePath { get; set; }
 
-        public TripRepository(string filePath)
+        public TripRepository(string filePath, ICarRepository carRepo)
         {
             FilePath = filePath;
+            _carRepo = carRepo; 
         }
+               
 
         public List<Trip> GetTripsForCar(string licensePlate)      //Henter alle trips for en bestemt bil
         {
@@ -27,7 +29,7 @@ namespace CarLibrary
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    var trip = Trip.FromString(line);
+                    var trip = Trip.FromString(line, _carRepo);
                     if (trip.LicensePlate.Equals(licensePlate, StringComparison.OrdinalIgnoreCase))
                     {
                         trips.Add(trip);
@@ -73,7 +75,7 @@ namespace CarLibrary
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    trips.Add(Trip.FromString(line));
+                    trips.Add(Trip.FromString(line, _carRepo));
                 }
             }
             return trips;

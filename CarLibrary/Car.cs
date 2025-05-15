@@ -24,7 +24,7 @@ namespace CarLibrary
         public void StartEngine() => IsEngineRunning = true;
         public void StopEngine() => IsEngineRunning = false;
 
-
+        public abstract object Fromstring(string input);
 
         public override string ToString()
 
@@ -33,6 +33,6 @@ namespace CarLibrary
         }
 
         
-        public abstract object Fromstring(string input);
+        
     }
 }

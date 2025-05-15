@@ -12,6 +12,8 @@ namespace CarLibrary
         public DateTime TripDate { get; }
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
+        public string LicensePlate => Car?.LicensePlate;
+
         public Car Car { get; }
 
 
@@ -53,7 +55,24 @@ namespace CarLibrary
             return $"{TripDate:yyyy-MM-dd},{StartTime:HH:mm},{EndTime:HH:mm},{Distance},{CalculateDuration().TotalMinutes:F1},{CalculateTripPrice(2.5):F2},{Car}";
         }
 
-       
+        public static Trip FromString(string input, ICarRepository carRepo)
+        {
+            var parts = input.Split(',');
+
+            if (parts.Length != 5)
+                throw new FormatException("Input skal indeholde 5 kommaseparerede værdier");
+
+            DateTime tripDate = DateTime.Parse(parts[0]);
+            DateTime start = DateTime.Parse(parts[1]);
+            DateTime end = DateTime.Parse(parts[2]);
+            double distance = double.Parse(parts[3]);
+            string licensePlate = parts[4];
+
+            var car = carRepo.GetCar(licensePlate)
+                      ?? throw new InvalidOperationException($"Bil med nr. {licensePlate} ikke fundet");
+
+            return new Trip(distance, tripDate, start, end, car);
+        }
 
     }
 }
