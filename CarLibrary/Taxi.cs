@@ -14,12 +14,7 @@ namespace CarLibrary
         public double PricePerKm { get; set; }
         public double PricePerMinute { get; set; }
 
-        public Taxi()
-        {
-            
-        }
-
-
+        
         public Taxi(IEnergy energySource)
         {
             _energySource = energySource;
@@ -92,6 +87,7 @@ namespace CarLibrary
 
             var taxi = new Taxi((IEnergy)energyCar)
             {
+
                 Brand = energyCar.Brand,
                 Model = energyCar.Model,
                 LicensePlate = energyCar.LicensePlate,
