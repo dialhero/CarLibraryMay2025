@@ -67,7 +67,14 @@ namespace CarLibrary
 
         public override string ToString()
         {
-            return base.ToString() + ",Taxi";
+            var energyType = _energySource switch
+            {
+                ElectricCar => "ElectricCar",
+                FuelCar => "FuelCar",
+                _ => "Unknown"
+            };
+
+            return $"Taxi,{energyType},{Brand},{Model},{LicensePlate},{Odometer}";
         }
 
         public static Taxi FromString(string input)

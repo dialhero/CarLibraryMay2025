@@ -34,6 +34,12 @@ namespace CarLibrary
             Odometer += (int)km;
         }
 
+        public override string ToString()
+        {
+            return $"FuelCar,{base.ToString()}";
+        }
+
+
         public static FuelCar FromString(string input)
         {
             var parts = input.Split(',');

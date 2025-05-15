@@ -38,6 +38,11 @@ namespace CarLibrary
             Odometer += (int)km;
         }
 
+        public override string ToString()
+        {
+            return $"ElectricCar,{base.ToString()}";
+        }
+
         public static ElectricCar FromString(string input)
         {
             var parts = input.Split(',');
